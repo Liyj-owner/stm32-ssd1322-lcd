@@ -100,6 +100,9 @@ int main(void)
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
   uint8_t i = 0;
+  uint8_t txt[] = "Reset\n";
+  HAL_UART_Transmit(&huart2, txt, sizeof(txt), 1000);
+
   while (1)
   {
     /* USER CODE END WHILE */
@@ -119,6 +122,10 @@ int main(void)
 	  HAL_GPIO_WritePin(LD2_GPIO_Port, LD2_Pin, GPIO_PIN_SET);
 	  HAL_Delay(50);
 	  HAL_GPIO_WritePin(LD2_GPIO_Port, LD2_Pin, GPIO_PIN_RESET);
+
+	  uint8_t txt[] = "UART Test\n";
+	  HAL_UART_Transmit(&huart2, txt, sizeof(txt), 1000);
+
 	  i++;
 	  if (i > 15) {
 		  i = 0;
