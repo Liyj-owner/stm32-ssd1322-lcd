@@ -115,6 +115,8 @@ int main(void)
 
 	  //ssd1322_fill(i);
 	  ssd1322_display();
+
+
 	  //HAL_GPIO_WritePin(BUZZER_GPIO_Port, BUZZER_Pin, GPIO_PIN_SET);
 	  //HAL_Delay(50);
 	  //HAL_GPIO_WritePin(BUZZER_GPIO_Port, BUZZER_Pin, GPIO_PIN_RESET);
