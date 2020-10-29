@@ -1,4 +1,5 @@
 #include "SSD1322.h"
+#include <math.h>
 
 #define SSD1322_SETCOMMANDLOCK 0xFD
 #define SSD1322_DISPLAYOFF 0xAE
@@ -37,10 +38,13 @@ static uint16_t _pin_nss;
 static GPIO_TypeDef *_port_dc;
 static uint16_t _pin_dc;
 
+#define SCREEN_WIDTH 256
+#define SCREEN_HEIGHT 64
+#define SCREEN_BPP 4
 
 static union {
-	uint8_t buff1d[64 * 128];
-	uint8_t buff2d[64][128];
+	uint8_t buff1d[SCREEN_HEIGHT * SCREEN_WIDTH / (8 / SCREEN_BPP)];
+	uint8_t buff2d[SCREEN_HEIGHT][SCREEN_WIDTH / (8 / SCREEN_BPP)];
 } screen_buffer;
 
 static void sendCommand(uint8_t command) {
@@ -183,13 +187,97 @@ void ssd1322_display(void) {
 	sendDataBytes(screen_buffer.buff1d, sizeof(screen_buffer));
 }
 
-void ssd1322_drawPixel(int32_t x, int32_t y, uint8_t color) {
+void ssd1322_drawPixel(int x, int y, uint8_t color) {
+	if (x < 0 || x >= SCREEN_WIDTH || y < 0 || y >= SCREEN_HEIGHT) {
+		return;
+	}
 	color &= 0x0F;
-	int32_t col = x / 2;
-	int32_t pix = x % 2;
-	uint8_t shift = (1 - pix) * 4;
-	uint8_t bits = color << shift;
-	uint8_t clear = 0xF0 >> shift;
+	int col = x / 2;
+	int pix = x % 2;
+	int shift = (1 - pix) * 4;
+	int bits = color << shift;
+	int clear = 0xF0 >> shift;
 	screen_buffer.buff2d[y][col] &= clear;
 	screen_buffer.buff2d[y][col] |= bits;
+}
+
+
+void ssd1322_drawString(char *str, int pos_x, int pos_y, Font *font) {
+	Character *ch;
+	int curr_pos_x = pos_x;
+	int curr_pos_y = pos_y;
+	while (*str) {
+		if (*str == '\n') {
+			curr_pos_y += font->font_size;
+			curr_pos_x = pos_x;
+			str++;
+		}
+		else {
+			unsigned char char_len;
+			ch = Font_getCharUTF8(font, str, &char_len);
+			if (ch) {
+				ssd1322_drawImageBPP(curr_pos_x, curr_pos_y + ch->height_offset, ch->bytes_per_line * 8 / font->bits_per_pixel, ch->height, (uint8_t *)ch->data, font->bits_per_pixel);
+				curr_pos_x += ch->width;
+			}
+			str += char_len;
+		}
+	};
+}
+
+void ssd1322_drawImage(int pos_x, int pos_y, int width, int height, uint8_t *image_data) {
+	int data_cols = width / 2 + ((width % 2) ? 1 : 0);
+	for (int y = 0; y < height; y++) {
+		for (int x = 0; x < width; x++) {
+			uint8_t pixel_pair = image_data[data_cols * y + x / 2];
+			uint8_t color = (x % 2) ? (pixel_pair & 0x0F) : ((pixel_pair & 0xF0) >> 4);
+			ssd1322_drawPixel(pos_x + x, pos_y + y, color);
+		}
+	}
+}
+
+uint8_t reduce8BPP(uint8_t *buff) {
+	return (buff[0] & 0xF0) | (buff[1] >> 4);
+}
+
+uint8_t reduce24BPP(uint8_t *buff) {
+	uint8_t _8bpp1[2] = {
+		(buff[0] + buff[1] + buff[2]) / 3,
+		(buff[3] + buff[4] + buff[5]) / 3,
+	};
+	return reduce8BPP(_8bpp1);
+}
+
+int power(int base, int exp) {
+    int result = 1;
+    while(exp) { result *= base; exp--; }
+    return result;
+}
+
+int getMask(BitsPerPixel bpp) {
+	return (power(2, bpp) - 1) << (8 - bpp);
+}
+
+uint8_t getPixelColor(uint8_t input, int bit_nr, BitsPerPixel bpp) {
+	const int Mask = getMask(bpp) >> bit_nr;
+	input &= Mask;
+	input = input >> (8 - bit_nr - bpp);
+	return input * (power(2, SCREEN_BPP) - 1) / (power(2, bpp) - 1);
+}
+
+void ssd1322_drawImageBPP(int pos_x, int pos_y, int width, int height, uint8_t *image_data, BitsPerPixel bpp) {
+	const uint8_t PixelsPerByte = 8 / bpp;
+	const int DataCols = width / PixelsPerByte + ((width % PixelsPerByte) ? 1 : 0);
+
+	for (int y = 0; y < height; y++) {
+		for (int col = 0; col < DataCols; col++) {
+			uint8_t byte = image_data[y * DataCols + col];
+			for (int bit = 0; bit < 8; bit += bpp) {
+				int x = col * PixelsPerByte + (bit / bpp);
+				//if (x < width) {
+					uint8_t color = getPixelColor(byte, bit, bpp);
+					ssd1322_drawPixel(pos_x + x, pos_y + y, color);
+				//}
+			}
+		}
+	}
 }

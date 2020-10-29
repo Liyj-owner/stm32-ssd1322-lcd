@@ -24,6 +24,7 @@
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 #include "SSD1322.h"
+#include "font1.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -102,18 +103,21 @@ int main(void)
   uint8_t i = 0;
   uint8_t txt[] = "Reset\n";
   HAL_UART_Transmit(&huart2, txt, sizeof(txt), 1000);
+  Font *font_ptr = &font;
+  char text_buffer[32] = "";
+  float counter = 1;
+
 
   while (1)
   {
-    /* USER CODE END WHILE */
-	  HAL_Delay(500);
-	  for (int j = 0; j < 64;j++) {
-		  ssd1322_drawPixel(j, j, i);
-		  ssd1322_drawPixel(j+1, j, i);
-		  ssd1322_drawPixel(j+2, j, i);
-	  }
 
-	  //ssd1322_fill(i);
+	  ssd1322_fill(0);
+
+	  //ssd1322_drawImage(0, 0, 14, 17, characters[1]->data);
+	  snprintf(text_buffer, sizeof(text_buffer), "Siema Ziom!");
+	  ssd1322_drawString(text_buffer, 20, 10, font_ptr);
+
+	  HAL_Delay(500);
 	  ssd1322_display();
 
 
@@ -132,6 +136,9 @@ int main(void)
 	  if (i > 15) {
 		  i = 0;
 	  }
+	  counter += 0.01;
+    /* USER CODE END WHILE */
+
     /* USER CODE BEGIN 3 */
   }
   /* USER CODE END 3 */
