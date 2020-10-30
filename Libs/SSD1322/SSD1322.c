@@ -247,21 +247,15 @@ uint8_t reduce24BPP(uint8_t *buff) {
 	return reduce8BPP(_8bpp1);
 }
 
-int power(int base, int exp) {
-    int result = 1;
-    while(exp) { result *= base; exp--; }
-    return result;
-}
-
 int getMask(BitsPerPixel bpp) {
-	return (power(2, bpp) - 1) << (8 - bpp);
+	return ((1 << bpp) - 1) << (8 - bpp);
 }
 
 uint8_t getPixelColor(uint8_t input, int bit_nr, BitsPerPixel bpp) {
 	const int Mask = getMask(bpp) >> bit_nr;
 	input &= Mask;
 	input = input >> (8 - bit_nr - bpp);
-	return input * (power(2, SCREEN_BPP) - 1) / (power(2, bpp) - 1);
+	return input * ((1 << SCREEN_BPP) - 1) / ((1 << bpp) - 1);
 }
 
 void ssd1322_drawImageBPP(int pos_x, int pos_y, int width, int height, uint8_t *image_data, BitsPerPixel bpp) {
@@ -273,10 +267,10 @@ void ssd1322_drawImageBPP(int pos_x, int pos_y, int width, int height, uint8_t *
 			uint8_t byte = image_data[y * DataCols + col];
 			for (int bit = 0; bit < 8; bit += bpp) {
 				int x = col * PixelsPerByte + (bit / bpp);
-				//if (x < width) {
+				if (x < width) {
 					uint8_t color = getPixelColor(byte, bit, bpp);
 					ssd1322_drawPixel(pos_x + x, pos_y + y, color);
-				//}
+				}
 			}
 		}
 	}
