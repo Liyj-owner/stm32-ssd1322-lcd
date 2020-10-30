@@ -23,6 +23,7 @@
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
+#include <stdio.h>
 #include "SSD1322.h"
 #include "font1.h"
 /* USER CODE END Includes */
@@ -110,7 +111,6 @@ int main(void)
 
   while (1)
   {
-
 	  ssd1322_fill(0);
 
 	  //ssd1322_drawImage(0, 0, 14, 17, characters[1]->data);
