@@ -5,28 +5,40 @@
 typedef struct {
 	char utf8[5];
 	uint8_t utf8_len;
-	uint16_t unicode;
+	uint32_t unicode;
 } Utf8UnicodeChar;
 
 Utf8UnicodeChar charFromUtf8(const char *chr) {
 	Utf8UnicodeChar result;
 	memset(result.utf8, 0, sizeof(result));
 
-	if ((*chr & 128) == 0) { // 0xxxxxxx (0 - 127)
-		result.unicode = *chr;
+	if ((chr[0] & 0b10000000) == 0) { // 0xxxxxxx (U+0000 - U+007F)
+		result.unicode = chr[0];
 		result.utf8_len = 1;
 	}
-	else if ((*chr & 192) == 128) { // 10xxxxxx (128 - 191)
-		result.unicode = *chr;
+	else if ((chr[0] & 0b11000000) == 0b10000000) { // 10xxxxxx (U+0080 - U+00BF)
+		result.unicode = chr[0];
 		result.utf8_len = 1;
 	}
-	else if ((*chr & 224) == 192) { // 110xxxxx xxxxxxxx (192 - 8191)
-		result.unicode = ((*chr & 31) << 6) | (*(chr + 1) & 63);
+	else if ((chr[0] & 0b11100000) == 0b11000000) { // 110xxxxx xxxxxxxx (U+00C0 - U+1FFF)
+		result.unicode = ((chr[0] & 0b00011111) << 6) | (chr[1] & 0b00111111);
 		result.utf8_len = 2;
 	}
-	else if ((*chr & 240) == 224) { // 1110xxxx 10xxxxxx 10xxxxxx (8192 - 65535)
-		result.unicode = ((*chr & 15) << 12) | ((*(chr + 1) & 63) << 6) | (*(chr + 2) & 63);
+	else if ((chr[0] & 0b11110000) == 0b11100000) { // 1110xxxx 10xxxxxx 10xxxxxx (U+0800 - U+FFFF)
+		result.unicode = ((chr[0] & 0b00001111) << 12) | ((chr[1] & 0b00111111) << 6) | (chr[2] & 0b00111111);
 		result.utf8_len = 3;
+	}
+	else if ((chr[0] & 0b11111000) == 0b11110000) { // 11110xxx 10xxxxxx 10xxxxxx 10xxxxxx (U+00010000 - U+001FFFFF)
+		result.unicode = ((chr[0] & 0b00000111) << 18) | ((chr[1] & 0b00111111) << 12) | ((chr[2] & 0b00111111) << 6) | (chr[3] & 0b00111111);
+		result.utf8_len = 4;
+	}
+	else if ((chr[0] & 0b11111100) == 0b11111000) { // 111110xx 10xxxxxx 10xxxxxx 10xxxxxx 10xxxxxx (U+00200000 - U+03FFFFFF)
+		result.unicode = ((chr[0] & 0b00000011) << 24) | ((chr[1] & 0b00111111) << 18) | ((chr[2] & 0b00111111) << 12) | ((chr[3] & 0b00111111) << 6) | (chr[4] & 0b00111111);
+		result.utf8_len = 5;
+	}
+	else if ((chr[0] & 0b11111110) == 0b11111100) { // 1111110x 10xxxxxx 10xxxxxx 10xxxxxx 10xxxxxx 10xxxxxx (U+04000000 - U+7FFFFFFF)
+		result.unicode = ((chr[0] & 0b00000001) << 30) | ((chr[1] & 0b00111111) << 24) | ((chr[2] & 0b00111111) << 18) | ((chr[3] & 0b00111111) << 12) | ((chr[4] & 0b00111111) << 6) | (chr[5] & 0b00111111);
+		result.utf8_len = 6;
 	}
 
 	memcpy(result.utf8, chr, result.utf8_len);
@@ -40,10 +52,10 @@ Character * Font_getCharUTF8(Font *font, char *utf8_char, uint8_t *byte_count) {
 }
 
 // binary search
-static Character * getCharacterFromArray(uint16_t unicode_char, Character **array, int count) {
-	int first = 0;
-	int last = count - 1;
-	int middle = (first + last) / 2;
+static Character * getCharacterFromArray(uint32_t unicode_char, Character **array, int count) {
+	uint32_t first = 0;
+	uint32_t last = count - 1;
+	uint32_t middle = (first + last) / 2;
 
 	while (first <= last) {
 		if (array[middle]->unicode < unicode_char) {
@@ -61,6 +73,6 @@ static Character * getCharacterFromArray(uint16_t unicode_char, Character **arra
 	return NULL;
 }
 
-Character * Font_getCharUnicode(Font *font, uint16_t unicode_char) {
+Character * Font_getCharUnicode(Font *font, uint32_t unicode_char) {
 	return getCharacterFromArray(unicode_char, font->character_table, font->character_count);
 }

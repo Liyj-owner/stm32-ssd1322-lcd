@@ -7,7 +7,7 @@ typedef struct {
 	uint16_t height;
 	uint16_t bytes_per_line;
 	uint16_t height_offset;
-	uint16_t unicode;
+	uint32_t unicode;
 	char *data;
 } Character;
 
@@ -19,4 +19,4 @@ typedef struct {
 } Font;
 
 Character * Font_getCharUTF8(Font *font, char *utf8_char, uint8_t *byte_count);
-Character * Font_getCharUnicode(Font *font, uint16_t unicode_char);
+Character * Font_getCharUnicode(Font *font, uint32_t unicode_char);
