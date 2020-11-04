@@ -10,7 +10,7 @@ typedef struct {
 
 Utf8UnicodeChar charFromUtf8(const char *chr) {
 	Utf8UnicodeChar result;
-	memset(result.utf8, 0, sizeof(result));
+	memset(&result, 0, sizeof(result));
 
 	if ((chr[0] & 0b10000000) == 0) { // 0xxxxxxx (U+0000 - U+007F)
 		result.unicode = chr[0];
