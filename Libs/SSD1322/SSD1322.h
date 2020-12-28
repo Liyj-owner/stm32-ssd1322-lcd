@@ -1,6 +1,7 @@
 #pragma once
 #include "main.h"
 #include "SSD1322Font.h"
+#include "SSD1322Image.h"
 #include <stdint.h>
 
 typedef enum {
@@ -16,5 +17,4 @@ void ssd1322_display(void);
 void ssd1322_fill(uint8_t color);
 void ssd1322_drawPixel(int x, int y, uint8_t color);
 void ssd1322_drawString(char *ch, int pos_x, int pos_y, Font *font);
-void ssd1322_drawImage(int pos_x, int pos_y, int width, int height, uint8_t *image_data);
-void ssd1322_drawImageBPP(int pos_x, int pos_y, int width, int height, uint8_t *image_data, BitsPerPixel bpp);
+void ssd1322_drawImage(int pos_x, int pos_y, Image *image);

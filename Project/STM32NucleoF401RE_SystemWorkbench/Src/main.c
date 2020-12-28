@@ -26,6 +26,7 @@
 #include <stdio.h>
 #include "SSD1322.h"
 #include "font1.h"
+#include "images.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -108,35 +109,36 @@ int main(void)
   char text_buffer[32] = "";
   float counter = 1;
 
-
   while (1)
   {
-	  ssd1322_fill(0);
-
-	  //ssd1322_drawImage(0, 0, 14, 17, characters[1]->data);
-	  snprintf(text_buffer, sizeof(text_buffer), "Siema Ziom!");
-	  ssd1322_drawString(text_buffer, 20, 10, font_ptr);
-
-	  HAL_Delay(500);
-	  ssd1322_display();
+	ssd1322_fill(0);
 
 
-	  //HAL_GPIO_WritePin(BUZZER_GPIO_Port, BUZZER_Pin, GPIO_PIN_SET);
-	  //HAL_Delay(50);
-	  //HAL_GPIO_WritePin(BUZZER_GPIO_Port, BUZZER_Pin, GPIO_PIN_RESET);
+	ssd1322_drawImage((256 - image_compressed.width) / 2, -i, &image_compressed);
 
-	  HAL_GPIO_WritePin(LD2_GPIO_Port, LD2_Pin, GPIO_PIN_SET);
-	  HAL_Delay(50);
-	  HAL_GPIO_WritePin(LD2_GPIO_Port, LD2_Pin, GPIO_PIN_RESET);
+//	snprintf(text_buffer, sizeof(text_buffer), "%.2f", counter);
+//	ssd1322_drawString(text_buffer, 160, 10, font_ptr);
 
-	  uint8_t txt[] = "UART Test\n";
-	  HAL_UART_Transmit(&huart2, txt, sizeof(txt), 1000);
+	HAL_Delay(10);
+	ssd1322_display();
 
-	  i++;
-	  if (i > 15) {
-		  i = 0;
-	  }
-	  counter += 0.01;
+
+	//HAL_GPIO_WritePin(BUZZER_GPIO_Port, BUZZER_Pin, GPIO_PIN_SET);
+	//HAL_Delay(50);
+	//HAL_GPIO_WritePin(BUZZER_GPIO_Port, BUZZER_Pin, GPIO_PIN_RESET);
+
+	HAL_GPIO_WritePin(LD2_GPIO_Port, LD2_Pin, GPIO_PIN_SET);
+	HAL_Delay(50);
+	HAL_GPIO_WritePin(LD2_GPIO_Port, LD2_Pin, GPIO_PIN_RESET);
+
+	uint8_t txt[] = "UART Test\n";
+	HAL_UART_Transmit(&huart2, txt, sizeof(txt), 1000);
+
+	i++;
+	if (i > image_compressed.height - 64) {
+	  i = 0;
+	}
+	counter += 0.01;
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
