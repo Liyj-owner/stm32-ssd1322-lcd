@@ -109,30 +109,34 @@ int main(void)
   char text_buffer[32] = "";
   float counter = 1;
 
+  uint32_t frame_time = 0;
   while (1)
   {
+	uint32_t time_start = HAL_GetTick();
 	ssd1322_fill(0);
-
 
 	ssd1322_drawImage((256 - image_compressed.width) / 2, -i, &image_compressed);
 
-//	snprintf(text_buffer, sizeof(text_buffer), "%.2f", counter);
-//	ssd1322_drawString(text_buffer, 160, 10, font_ptr);
+	snprintf(text_buffer, sizeof(text_buffer), "%lums", frame_time);
+	ssd1322_drawString(text_buffer, 100, 10, font_ptr);
 
-	HAL_Delay(10);
+	//HAL_Delay(10);
 	ssd1322_display();
-
+	uint32_t time_end = HAL_GetTick();
+	frame_time = time_end - time_start;
 
 	//HAL_GPIO_WritePin(BUZZER_GPIO_Port, BUZZER_Pin, GPIO_PIN_SET);
 	//HAL_Delay(50);
 	//HAL_GPIO_WritePin(BUZZER_GPIO_Port, BUZZER_Pin, GPIO_PIN_RESET);
 
-	HAL_GPIO_WritePin(LD2_GPIO_Port, LD2_Pin, GPIO_PIN_SET);
-	HAL_Delay(50);
-	HAL_GPIO_WritePin(LD2_GPIO_Port, LD2_Pin, GPIO_PIN_RESET);
+//	HAL_GPIO_WritePin(LD2_GPIO_Port, LD2_Pin, GPIO_PIN_SET);
+//	HAL_Delay(50);
+//	HAL_GPIO_WritePin(LD2_GPIO_Port, LD2_Pin, GPIO_PIN_RESET);
 
-	uint8_t txt[] = "UART Test\n";
-	HAL_UART_Transmit(&huart2, txt, sizeof(txt), 1000);
+	HAL_GPIO_TogglePin(LD2_GPIO_Port, LD2_Pin);
+
+	//uint8_t txt[] = "UART Test\n";
+	//HAL_UART_Transmit(&huart2, txt, sizeof(txt), 1000);
 
 	i++;
 	if (i > image_compressed.height - 64) {
