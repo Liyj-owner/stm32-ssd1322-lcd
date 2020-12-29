@@ -2,4 +2,4 @@
 
 #include "SSD1322Image.h"
 
-Image image_compressed;
+const Image image_compressed;

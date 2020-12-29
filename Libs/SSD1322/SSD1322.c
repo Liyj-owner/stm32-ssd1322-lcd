@@ -62,8 +62,6 @@ static union {
 // image decompression buffer
 static uint8_t decompression_buffer[DECOMPRESSION_BUFFER_SIZE];
 
-static void _drawImageBPP(int pos_x, int pos_y, int width, int height, uint8_t *image_data, BitsPerPixel bpp);
-
 static void _sendCommand(uint8_t command) {
 	HAL_GPIO_WritePin(_port_nss, _pin_nss, GPIO_PIN_SET);
 	HAL_GPIO_WritePin(_port_dc, _pin_dc, GPIO_PIN_RESET);
@@ -204,6 +202,17 @@ void ssd1322_display(void) {
 	_sendDataBytes(screen_buffer.buff1d, sizeof(screen_buffer));
 }
 
+int getMask(BitsPerPixel bpp) {
+	return ((1 << bpp) - 1) << (8 - bpp);
+}
+
+uint8_t getPixelColor(uint8_t input, int bit_nr, BitsPerPixel bpp) {
+	const int Mask = getMask(bpp) >> bit_nr;
+	input &= Mask;
+	input = input >> (8 - bit_nr - bpp);
+	return input * ((1 << SCREEN_BPP) - 1) / ((1 << bpp) - 1);
+}
+
 void ssd1322_drawPixel(int x, int y, uint8_t color) {
 	if (x < 0 || x >= SCREEN_WIDTH || y < 0 || y >= SCREEN_HEIGHT) {
 		return;
@@ -218,6 +227,25 @@ void ssd1322_drawPixel(int x, int y, uint8_t color) {
 	screen_buffer.buff2d[y][col] |= bits;
 }
 
+static void _drawImageBPP(int pos_x, int pos_y, int width, int height, const uint8_t *image_data, BitsPerPixel bpp) {
+	const uint8_t PixelsPerByte = 8 / bpp;
+	const int DataCols = width / PixelsPerByte + ((width % PixelsPerByte) ? 1 : 0);
+
+	for (int y = 0; y < height; y++) {
+		for (int col = 0; col < DataCols; col++) {
+			uint8_t byte = image_data[y * DataCols + col];
+			for (int bit = 0; bit < 8; bit += bpp) {
+				int x = col * PixelsPerByte + (bit / bpp);
+				if (x < width) {
+					uint8_t color = getPixelColor(byte, bit, bpp);
+					if (color) {
+						ssd1322_drawPixel(pos_x + x, pos_y + y, color);
+					}
+				}
+			}
+		}
+	}
+}
 
 void ssd1322_drawString(char *str, int pos_x, int pos_y, Font *font) {
 	Character *ch;
@@ -241,51 +269,8 @@ void ssd1322_drawString(char *str, int pos_x, int pos_y, Font *font) {
 	};
 }
 
-uint8_t reduce8BPP(uint8_t *buff) {
-	return (buff[0] & 0xF0) | (buff[1] >> 4);
-}
-
-uint8_t reduce24BPP(uint8_t *buff) {
-	uint8_t _8bpp1[2] = {
-		(buff[0] + buff[1] + buff[2]) / 3,
-		(buff[3] + buff[4] + buff[5]) / 3,
-	};
-	return reduce8BPP(_8bpp1);
-}
-
-int getMask(BitsPerPixel bpp) {
-	return ((1 << bpp) - 1) << (8 - bpp);
-}
-
-uint8_t getPixelColor(uint8_t input, int bit_nr, BitsPerPixel bpp) {
-	const int Mask = getMask(bpp) >> bit_nr;
-	input &= Mask;
-	input = input >> (8 - bit_nr - bpp);
-	return input * ((1 << SCREEN_BPP) - 1) / ((1 << bpp) - 1);
-}
-
-static void _drawImageBPP(int pos_x, int pos_y, int width, int height, uint8_t *image_data, BitsPerPixel bpp) {
-	const uint8_t PixelsPerByte = 8 / bpp;
-	const int DataCols = width / PixelsPerByte + ((width % PixelsPerByte) ? 1 : 0);
-
-	for (int y = 0; y < height; y++) {
-		for (int col = 0; col < DataCols; col++) {
-			uint8_t byte = image_data[y * DataCols + col];
-			for (int bit = 0; bit < 8; bit += bpp) {
-				int x = col * PixelsPerByte + (bit / bpp);
-				if (x < width) {
-					uint8_t color = getPixelColor(byte, bit, bpp);
-					if (color) {
-						ssd1322_drawPixel(pos_x + x, pos_y + y, color);
-					}
-				}
-			}
-		}
-	}
-}
-
-void ssd1322_drawImage(int pos_x, int pos_y, Image *image) {
-	uint8_t *image_data = image->image_data;
+void ssd1322_drawImage(int pos_x, int pos_y, const Image *image) {
+	const uint8_t *image_data = image->image_data;
 
 #if IMAGE_COMPRESSION_METHOD == IMAGE_COMPRESSION_NONE
 	// uncompressed
