@@ -119,7 +119,7 @@ int main(void)
 	ssd1322_drawImage((256 - img->width) / 2, -i, img);
 
 	snprintf(text_buffer, sizeof(text_buffer), "%lums", frame_time);
-	ssd1322_drawString(text_buffer, 100, 10, font_ptr);
+	ssd1322_drawString(text_buffer, 0, 0, font_ptr);
 
 	//HAL_Delay(10);
 	ssd1322_display();
