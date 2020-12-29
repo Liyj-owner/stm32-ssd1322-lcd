@@ -105,7 +105,7 @@ int main(void)
   int32_t i = -64;
   uint8_t txt[] = "Reset\n";
   HAL_UART_Transmit(&huart2, txt, sizeof(txt), 1000);
-  Font *font_ptr = &font;
+  const Font *font_ptr = &font;
   char text_buffer[32] = "";
   float counter = 1;
 

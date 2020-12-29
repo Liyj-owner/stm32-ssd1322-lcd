@@ -16,5 +16,5 @@ void ssd1322_init(SPI_HandleTypeDef *hspi, GPIO_TypeDef *port_nss, uint16_t pin_
 void ssd1322_display(void);
 void ssd1322_fill(uint8_t color);
 void ssd1322_drawPixel(int x, int y, uint8_t color);
-void ssd1322_drawString(char *ch, int pos_x, int pos_y, Font *font);
+void ssd1322_drawString(const char *ch, int pos_x, int pos_y, const Font *font);
 void ssd1322_drawImage(int pos_x, int pos_y, const Image *image);

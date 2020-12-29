@@ -247,8 +247,7 @@ static void _drawImageBPP(int pos_x, int pos_y, int width, int height, const uin
 	}
 }
 
-void ssd1322_drawString(char *str, int pos_x, int pos_y, Font *font) {
-	Character *ch;
+void ssd1322_drawString(const char *str, int pos_x, int pos_y, const Font *font) {
 	int curr_pos_x = pos_x;
 	int curr_pos_y = pos_y;
 	while (*str) {
@@ -259,7 +258,7 @@ void ssd1322_drawString(char *str, int pos_x, int pos_y, Font *font) {
 		}
 		else {
 			unsigned char char_len;
-			ch = Font_getCharUTF8(font, str, &char_len);
+			Character *ch = Font_getCharUTF8(font, str, &char_len);
 			if (ch != NULL) {
 				_drawImageBPP(curr_pos_x, curr_pos_y + ch->height_offset, ch->bytes_per_line * 8 / font->bits_per_pixel, ch->height, ch->data, font->bits_per_pixel);
 				curr_pos_x += ch->width;
