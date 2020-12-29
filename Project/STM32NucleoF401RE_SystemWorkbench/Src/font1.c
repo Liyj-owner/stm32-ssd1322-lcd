@@ -36,7 +36,7 @@ bits per pixel: 1
 */
 
 // Character:   unicode: 32
-static const uint8_t character_data_32[] = {
+static const uint8_t character_32_data[] = {
 };
 static const Character character_32 = {
   3, // width
@@ -44,11 +44,11 @@ static const Character character_32 = {
   0, // bytes per line
   0, // height offset
   32, // unicode id
-  (uint8_t *)character_data_32, // data
+  (uint8_t *)character_32_data, // data
 };
 
 // Character: , unicode: 44
-static const uint8_t character_data_44[] = {
+static const uint8_t character_44_data[] = {
    64,
    64,
   128,
@@ -59,11 +59,11 @@ static const Character character_44 = {
   1, // bytes per line
   11, // height offset
   44, // unicode id
-  (uint8_t *)character_data_44, // data
+  (uint8_t *)character_44_data, // data
 };
 
 // Character: . unicode: 46
-static const uint8_t character_data_46[] = {
+static const uint8_t character_46_data[] = {
   128,
 };
 static const Character character_46 = {
@@ -72,11 +72,11 @@ static const Character character_46 = {
   1, // bytes per line
   11, // height offset
   46, // unicode id
-  (uint8_t *)character_data_46, // data
+  (uint8_t *)character_46_data, // data
 };
 
 // Character: 0 unicode: 48
-static const uint8_t character_data_48[] = {
+static const uint8_t character_48_data[] = {
   112,
   136,
   136,
@@ -92,11 +92,11 @@ static const Character character_48 = {
   1, // bytes per line
   4, // height offset
   48, // unicode id
-  (uint8_t *)character_data_48, // data
+  (uint8_t *)character_48_data, // data
 };
 
 // Character: 1 unicode: 49
-static const uint8_t character_data_49[] = {
+static const uint8_t character_49_data[] = {
    32,
    96,
   160,
@@ -112,11 +112,11 @@ static const Character character_49 = {
   1, // bytes per line
   4, // height offset
   49, // unicode id
-  (uint8_t *)character_data_49, // data
+  (uint8_t *)character_49_data, // data
 };
 
 // Character: 2 unicode: 50
-static const uint8_t character_data_50[] = {
+static const uint8_t character_50_data[] = {
   112,
   136,
     8,
@@ -132,11 +132,11 @@ static const Character character_50 = {
   1, // bytes per line
   4, // height offset
   50, // unicode id
-  (uint8_t *)character_data_50, // data
+  (uint8_t *)character_50_data, // data
 };
 
 // Character: 3 unicode: 51
-static const uint8_t character_data_51[] = {
+static const uint8_t character_51_data[] = {
   112,
   136,
     8,
@@ -152,11 +152,11 @@ static const Character character_51 = {
   1, // bytes per line
   4, // height offset
   51, // unicode id
-  (uint8_t *)character_data_51, // data
+  (uint8_t *)character_51_data, // data
 };
 
 // Character: 4 unicode: 52
-static const uint8_t character_data_52[] = {
+static const uint8_t character_52_data[] = {
    16,
    48,
    80,
@@ -172,11 +172,11 @@ static const Character character_52 = {
   1, // bytes per line
   4, // height offset
   52, // unicode id
-  (uint8_t *)character_data_52, // data
+  (uint8_t *)character_52_data, // data
 };
 
 // Character: 5 unicode: 53
-static const uint8_t character_data_53[] = {
+static const uint8_t character_53_data[] = {
   248,
   128,
   128,
@@ -192,11 +192,11 @@ static const Character character_53 = {
   1, // bytes per line
   4, // height offset
   53, // unicode id
-  (uint8_t *)character_data_53, // data
+  (uint8_t *)character_53_data, // data
 };
 
 // Character: 6 unicode: 54
-static const uint8_t character_data_54[] = {
+static const uint8_t character_54_data[] = {
   112,
   136,
   128,
@@ -212,11 +212,11 @@ static const Character character_54 = {
   1, // bytes per line
   4, // height offset
   54, // unicode id
-  (uint8_t *)character_data_54, // data
+  (uint8_t *)character_54_data, // data
 };
 
 // Character: 7 unicode: 55
-static const uint8_t character_data_55[] = {
+static const uint8_t character_55_data[] = {
   248,
     8,
    16,
@@ -232,11 +232,11 @@ static const Character character_55 = {
   1, // bytes per line
   4, // height offset
   55, // unicode id
-  (uint8_t *)character_data_55, // data
+  (uint8_t *)character_55_data, // data
 };
 
 // Character: 8 unicode: 56
-static const uint8_t character_data_56[] = {
+static const uint8_t character_56_data[] = {
   112,
   136,
   136,
@@ -252,11 +252,11 @@ static const Character character_56 = {
   1, // bytes per line
   4, // height offset
   56, // unicode id
-  (uint8_t *)character_data_56, // data
+  (uint8_t *)character_56_data, // data
 };
 
 // Character: 9 unicode: 57
-static const uint8_t character_data_57[] = {
+static const uint8_t character_57_data[] = {
   112,
   136,
   136,
@@ -272,11 +272,11 @@ static const Character character_57 = {
   1, // bytes per line
   4, // height offset
   57, // unicode id
-  (uint8_t *)character_data_57, // data
+  (uint8_t *)character_57_data, // data
 };
 
 // Character: : unicode: 58
-static const uint8_t character_data_58[] = {
+static const uint8_t character_58_data[] = {
   128,
     0,
     0,
@@ -290,11 +290,11 @@ static const Character character_58 = {
   1, // bytes per line
   6, // height offset
   58, // unicode id
-  (uint8_t *)character_data_58, // data
+  (uint8_t *)character_58_data, // data
 };
 
 // Character: ; unicode: 59
-static const uint8_t character_data_59[] = {
+static const uint8_t character_59_data[] = {
    64,
     0,
     0,
@@ -310,11 +310,11 @@ static const Character character_59 = {
   1, // bytes per line
   6, // height offset
   59, // unicode id
-  (uint8_t *)character_data_59, // data
+  (uint8_t *)character_59_data, // data
 };
 
 // Character: A unicode: 65
-static const uint8_t character_data_65[] = {
+static const uint8_t character_65_data[] = {
    16,
    16,
    40,
@@ -330,11 +330,11 @@ static const Character character_65 = {
   1, // bytes per line
   4, // height offset
   65, // unicode id
-  (uint8_t *)character_data_65, // data
+  (uint8_t *)character_65_data, // data
 };
 
 // Character: B unicode: 66
-static const uint8_t character_data_66[] = {
+static const uint8_t character_66_data[] = {
   248,
   132,
   132,
@@ -350,11 +350,11 @@ static const Character character_66 = {
   1, // bytes per line
   4, // height offset
   66, // unicode id
-  (uint8_t *)character_data_66, // data
+  (uint8_t *)character_66_data, // data
 };
 
 // Character: C unicode: 67
-static const uint8_t character_data_67[] = {
+static const uint8_t character_67_data[] = {
    56,
    68,
   128,
@@ -370,11 +370,11 @@ static const Character character_67 = {
   1, // bytes per line
   4, // height offset
   67, // unicode id
-  (uint8_t *)character_data_67, // data
+  (uint8_t *)character_67_data, // data
 };
 
 // Character: D unicode: 68
-static const uint8_t character_data_68[] = {
+static const uint8_t character_68_data[] = {
   240,
   136,
   132,
@@ -390,11 +390,11 @@ static const Character character_68 = {
   1, // bytes per line
   4, // height offset
   68, // unicode id
-  (uint8_t *)character_data_68, // data
+  (uint8_t *)character_68_data, // data
 };
 
 // Character: E unicode: 69
-static const uint8_t character_data_69[] = {
+static const uint8_t character_69_data[] = {
   252,
   128,
   128,
@@ -410,11 +410,11 @@ static const Character character_69 = {
   1, // bytes per line
   4, // height offset
   69, // unicode id
-  (uint8_t *)character_data_69, // data
+  (uint8_t *)character_69_data, // data
 };
 
 // Character: F unicode: 70
-static const uint8_t character_data_70[] = {
+static const uint8_t character_70_data[] = {
   252,
   128,
   128,
@@ -430,11 +430,11 @@ static const Character character_70 = {
   1, // bytes per line
   4, // height offset
   70, // unicode id
-  (uint8_t *)character_data_70, // data
+  (uint8_t *)character_70_data, // data
 };
 
 // Character: G unicode: 71
-static const uint8_t character_data_71[] = {
+static const uint8_t character_71_data[] = {
    56,
    68,
   130,
@@ -450,11 +450,11 @@ static const Character character_71 = {
   1, // bytes per line
   4, // height offset
   71, // unicode id
-  (uint8_t *)character_data_71, // data
+  (uint8_t *)character_71_data, // data
 };
 
 // Character: H unicode: 72
-static const uint8_t character_data_72[] = {
+static const uint8_t character_72_data[] = {
   132,
   132,
   132,
@@ -470,11 +470,11 @@ static const Character character_72 = {
   1, // bytes per line
   4, // height offset
   72, // unicode id
-  (uint8_t *)character_data_72, // data
+  (uint8_t *)character_72_data, // data
 };
 
 // Character: I unicode: 73
-static const uint8_t character_data_73[] = {
+static const uint8_t character_73_data[] = {
   128,
   128,
   128,
@@ -490,11 +490,11 @@ static const Character character_73 = {
   1, // bytes per line
   4, // height offset
   73, // unicode id
-  (uint8_t *)character_data_73, // data
+  (uint8_t *)character_73_data, // data
 };
 
 // Character: K unicode: 75
-static const uint8_t character_data_75[] = {
+static const uint8_t character_75_data[] = {
   132,
   136,
   144,
@@ -510,11 +510,11 @@ static const Character character_75 = {
   1, // bytes per line
   4, // height offset
   75, // unicode id
-  (uint8_t *)character_data_75, // data
+  (uint8_t *)character_75_data, // data
 };
 
 // Character: L unicode: 76
-static const uint8_t character_data_76[] = {
+static const uint8_t character_76_data[] = {
   128,
   128,
   128,
@@ -530,11 +530,11 @@ static const Character character_76 = {
   1, // bytes per line
   4, // height offset
   76, // unicode id
-  (uint8_t *)character_data_76, // data
+  (uint8_t *)character_76_data, // data
 };
 
 // Character: M unicode: 77
-static const uint8_t character_data_77[] = {
+static const uint8_t character_77_data[] = {
   130,
   198,
   170,
@@ -550,11 +550,11 @@ static const Character character_77 = {
   1, // bytes per line
   4, // height offset
   77, // unicode id
-  (uint8_t *)character_data_77, // data
+  (uint8_t *)character_77_data, // data
 };
 
 // Character: N unicode: 78
-static const uint8_t character_data_78[] = {
+static const uint8_t character_78_data[] = {
   132,
   196,
   164,
@@ -570,11 +570,11 @@ static const Character character_78 = {
   1, // bytes per line
   4, // height offset
   78, // unicode id
-  (uint8_t *)character_data_78, // data
+  (uint8_t *)character_78_data, // data
 };
 
 // Character: O unicode: 79
-static const uint8_t character_data_79[] = {
+static const uint8_t character_79_data[] = {
    56,
    68,
   130,
@@ -590,11 +590,11 @@ static const Character character_79 = {
   1, // bytes per line
   4, // height offset
   79, // unicode id
-  (uint8_t *)character_data_79, // data
+  (uint8_t *)character_79_data, // data
 };
 
 // Character: P unicode: 80
-static const uint8_t character_data_80[] = {
+static const uint8_t character_80_data[] = {
   248,
   132,
   132,
@@ -610,11 +610,11 @@ static const Character character_80 = {
   1, // bytes per line
   4, // height offset
   80, // unicode id
-  (uint8_t *)character_data_80, // data
+  (uint8_t *)character_80_data, // data
 };
 
 // Character: Q unicode: 81
-static const uint8_t character_data_81[] = {
+static const uint8_t character_81_data[] = {
    56,
    68,
   130,
@@ -630,11 +630,11 @@ static const Character character_81 = {
   1, // bytes per line
   4, // height offset
   81, // unicode id
-  (uint8_t *)character_data_81, // data
+  (uint8_t *)character_81_data, // data
 };
 
 // Character: R unicode: 82
-static const uint8_t character_data_82[] = {
+static const uint8_t character_82_data[] = {
   248,
   132,
   132,
@@ -650,11 +650,11 @@ static const Character character_82 = {
   1, // bytes per line
   4, // height offset
   82, // unicode id
-  (uint8_t *)character_data_82, // data
+  (uint8_t *)character_82_data, // data
 };
 
 // Character: S unicode: 83
-static const uint8_t character_data_83[] = {
+static const uint8_t character_83_data[] = {
   120,
   132,
   128,
@@ -670,11 +670,11 @@ static const Character character_83 = {
   1, // bytes per line
   4, // height offset
   83, // unicode id
-  (uint8_t *)character_data_83, // data
+  (uint8_t *)character_83_data, // data
 };
 
 // Character: T unicode: 84
-static const uint8_t character_data_84[] = {
+static const uint8_t character_84_data[] = {
   254,
    16,
    16,
@@ -690,11 +690,11 @@ static const Character character_84 = {
   1, // bytes per line
   4, // height offset
   84, // unicode id
-  (uint8_t *)character_data_84, // data
+  (uint8_t *)character_84_data, // data
 };
 
 // Character: V unicode: 86
-static const uint8_t character_data_86[] = {
+static const uint8_t character_86_data[] = {
   130,
   130,
    68,
@@ -710,11 +710,11 @@ static const Character character_86 = {
   1, // bytes per line
   4, // height offset
   86, // unicode id
-  (uint8_t *)character_data_86, // data
+  (uint8_t *)character_86_data, // data
 };
 
 // Character: W unicode: 87
-static const uint8_t character_data_87[] = {
+static const uint8_t character_87_data[] = {
   136, 128,
   136, 128,
    73,   0,
@@ -730,11 +730,11 @@ static const Character character_87 = {
   2, // bytes per line
   4, // height offset
   87, // unicode id
-  (uint8_t *)character_data_87, // data
+  (uint8_t *)character_87_data, // data
 };
 
 // Character: X unicode: 88
-static const uint8_t character_data_88[] = {
+static const uint8_t character_88_data[] = {
   130,
    68,
    40,
@@ -750,11 +750,11 @@ static const Character character_88 = {
   1, // bytes per line
   4, // height offset
   88, // unicode id
-  (uint8_t *)character_data_88, // data
+  (uint8_t *)character_88_data, // data
 };
 
 // Character: Y unicode: 89
-static const uint8_t character_data_89[] = {
+static const uint8_t character_89_data[] = {
   130,
    68,
    40,
@@ -770,11 +770,11 @@ static const Character character_89 = {
   1, // bytes per line
   4, // height offset
   89, // unicode id
-  (uint8_t *)character_data_89, // data
+  (uint8_t *)character_89_data, // data
 };
 
 // Character: Z unicode: 90
-static const uint8_t character_data_90[] = {
+static const uint8_t character_90_data[] = {
   252,
     4,
     8,
@@ -790,11 +790,11 @@ static const Character character_90 = {
   1, // bytes per line
   4, // height offset
   90, // unicode id
-  (uint8_t *)character_data_90, // data
+  (uint8_t *)character_90_data, // data
 };
 
 // Character: a unicode: 97
-static const uint8_t character_data_97[] = {
+static const uint8_t character_97_data[] = {
   112,
     8,
   120,
@@ -808,11 +808,11 @@ static const Character character_97 = {
   1, // bytes per line
   6, // height offset
   97, // unicode id
-  (uint8_t *)character_data_97, // data
+  (uint8_t *)character_97_data, // data
 };
 
 // Character: b unicode: 98
-static const uint8_t character_data_98[] = {
+static const uint8_t character_98_data[] = {
   128,
   128,
   240,
@@ -828,11 +828,11 @@ static const Character character_98 = {
   1, // bytes per line
   4, // height offset
   98, // unicode id
-  (uint8_t *)character_data_98, // data
+  (uint8_t *)character_98_data, // data
 };
 
 // Character: c unicode: 99
-static const uint8_t character_data_99[] = {
+static const uint8_t character_99_data[] = {
   112,
   136,
   128,
@@ -846,11 +846,11 @@ static const Character character_99 = {
   1, // bytes per line
   6, // height offset
   99, // unicode id
-  (uint8_t *)character_data_99, // data
+  (uint8_t *)character_99_data, // data
 };
 
 // Character: d unicode: 100
-static const uint8_t character_data_100[] = {
+static const uint8_t character_100_data[] = {
     8,
     8,
   120,
@@ -866,11 +866,11 @@ static const Character character_100 = {
   1, // bytes per line
   4, // height offset
   100, // unicode id
-  (uint8_t *)character_data_100, // data
+  (uint8_t *)character_100_data, // data
 };
 
 // Character: e unicode: 101
-static const uint8_t character_data_101[] = {
+static const uint8_t character_101_data[] = {
   112,
   136,
   248,
@@ -884,11 +884,11 @@ static const Character character_101 = {
   1, // bytes per line
   6, // height offset
   101, // unicode id
-  (uint8_t *)character_data_101, // data
+  (uint8_t *)character_101_data, // data
 };
 
 // Character: f unicode: 102
-static const uint8_t character_data_102[] = {
+static const uint8_t character_102_data[] = {
    48,
    64,
    64,
@@ -905,11 +905,11 @@ static const Character character_102 = {
   1, // bytes per line
   3, // height offset
   102, // unicode id
-  (uint8_t *)character_data_102, // data
+  (uint8_t *)character_102_data, // data
 };
 
 // Character: g unicode: 103
-static const uint8_t character_data_103[] = {
+static const uint8_t character_103_data[] = {
   120,
   136,
   136,
@@ -925,11 +925,11 @@ static const Character character_103 = {
   1, // bytes per line
   6, // height offset
   103, // unicode id
-  (uint8_t *)character_data_103, // data
+  (uint8_t *)character_103_data, // data
 };
 
 // Character: h unicode: 104
-static const uint8_t character_data_104[] = {
+static const uint8_t character_104_data[] = {
   128,
   128,
   240,
@@ -945,11 +945,11 @@ static const Character character_104 = {
   1, // bytes per line
   4, // height offset
   104, // unicode id
-  (uint8_t *)character_data_104, // data
+  (uint8_t *)character_104_data, // data
 };
 
 // Character: i unicode: 105
-static const uint8_t character_data_105[] = {
+static const uint8_t character_105_data[] = {
   128,
     0,
   128,
@@ -965,11 +965,11 @@ static const Character character_105 = {
   1, // bytes per line
   4, // height offset
   105, // unicode id
-  (uint8_t *)character_data_105, // data
+  (uint8_t *)character_105_data, // data
 };
 
 // Character: j unicode: 106
-static const uint8_t character_data_106[] = {
+static const uint8_t character_106_data[] = {
    64,
     0,
    64,
@@ -987,11 +987,11 @@ static const Character character_106 = {
   1, // bytes per line
   4, // height offset
   106, // unicode id
-  (uint8_t *)character_data_106, // data
+  (uint8_t *)character_106_data, // data
 };
 
 // Character: k unicode: 107
-static const uint8_t character_data_107[] = {
+static const uint8_t character_107_data[] = {
   128,
   128,
   144,
@@ -1007,11 +1007,11 @@ static const Character character_107 = {
   1, // bytes per line
   4, // height offset
   107, // unicode id
-  (uint8_t *)character_data_107, // data
+  (uint8_t *)character_107_data, // data
 };
 
 // Character: l unicode: 108
-static const uint8_t character_data_108[] = {
+static const uint8_t character_108_data[] = {
   128,
   128,
   128,
@@ -1027,11 +1027,11 @@ static const Character character_108 = {
   1, // bytes per line
   4, // height offset
   108, // unicode id
-  (uint8_t *)character_data_108, // data
+  (uint8_t *)character_108_data, // data
 };
 
 // Character: m unicode: 109
-static const uint8_t character_data_109[] = {
+static const uint8_t character_109_data[] = {
   236,
   146,
   146,
@@ -1045,11 +1045,11 @@ static const Character character_109 = {
   1, // bytes per line
   6, // height offset
   109, // unicode id
-  (uint8_t *)character_data_109, // data
+  (uint8_t *)character_109_data, // data
 };
 
 // Character: n unicode: 110
-static const uint8_t character_data_110[] = {
+static const uint8_t character_110_data[] = {
   240,
   136,
   136,
@@ -1063,11 +1063,11 @@ static const Character character_110 = {
   1, // bytes per line
   6, // height offset
   110, // unicode id
-  (uint8_t *)character_data_110, // data
+  (uint8_t *)character_110_data, // data
 };
 
 // Character: o unicode: 111
-static const uint8_t character_data_111[] = {
+static const uint8_t character_111_data[] = {
   112,
   136,
   136,
@@ -1081,11 +1081,11 @@ static const Character character_111 = {
   1, // bytes per line
   6, // height offset
   111, // unicode id
-  (uint8_t *)character_data_111, // data
+  (uint8_t *)character_111_data, // data
 };
 
 // Character: p unicode: 112
-static const uint8_t character_data_112[] = {
+static const uint8_t character_112_data[] = {
   240,
   136,
   136,
@@ -1101,11 +1101,11 @@ static const Character character_112 = {
   1, // bytes per line
   6, // height offset
   112, // unicode id
-  (uint8_t *)character_data_112, // data
+  (uint8_t *)character_112_data, // data
 };
 
 // Character: q unicode: 113
-static const uint8_t character_data_113[] = {
+static const uint8_t character_113_data[] = {
   120,
   136,
   136,
@@ -1121,11 +1121,11 @@ static const Character character_113 = {
   1, // bytes per line
   6, // height offset
   113, // unicode id
-  (uint8_t *)character_data_113, // data
+  (uint8_t *)character_113_data, // data
 };
 
 // Character: r unicode: 114
-static const uint8_t character_data_114[] = {
+static const uint8_t character_114_data[] = {
   176,
   192,
   128,
@@ -1139,11 +1139,11 @@ static const Character character_114 = {
   1, // bytes per line
   6, // height offset
   114, // unicode id
-  (uint8_t *)character_data_114, // data
+  (uint8_t *)character_114_data, // data
 };
 
 // Character: s unicode: 115
-static const uint8_t character_data_115[] = {
+static const uint8_t character_115_data[] = {
   112,
   136,
    96,
@@ -1157,11 +1157,11 @@ static const Character character_115 = {
   1, // bytes per line
   6, // height offset
   115, // unicode id
-  (uint8_t *)character_data_115, // data
+  (uint8_t *)character_115_data, // data
 };
 
 // Character: t unicode: 116
-static const uint8_t character_data_116[] = {
+static const uint8_t character_116_data[] = {
    64,
    64,
   240,
@@ -1177,11 +1177,11 @@ static const Character character_116 = {
   1, // bytes per line
   4, // height offset
   116, // unicode id
-  (uint8_t *)character_data_116, // data
+  (uint8_t *)character_116_data, // data
 };
 
 // Character: u unicode: 117
-static const uint8_t character_data_117[] = {
+static const uint8_t character_117_data[] = {
   136,
   136,
   136,
@@ -1195,11 +1195,11 @@ static const Character character_117 = {
   1, // bytes per line
   6, // height offset
   117, // unicode id
-  (uint8_t *)character_data_117, // data
+  (uint8_t *)character_117_data, // data
 };
 
 // Character: v unicode: 118
-static const uint8_t character_data_118[] = {
+static const uint8_t character_118_data[] = {
   136,
   136,
    80,
@@ -1213,11 +1213,11 @@ static const Character character_118 = {
   1, // bytes per line
   6, // height offset
   118, // unicode id
-  (uint8_t *)character_data_118, // data
+  (uint8_t *)character_118_data, // data
 };
 
 // Character: w unicode: 119
-static const uint8_t character_data_119[] = {
+static const uint8_t character_119_data[] = {
   136, 128,
   136, 128,
    85,   0,
@@ -1231,11 +1231,11 @@ static const Character character_119 = {
   2, // bytes per line
   6, // height offset
   119, // unicode id
-  (uint8_t *)character_data_119, // data
+  (uint8_t *)character_119_data, // data
 };
 
 // Character: x unicode: 120
-static const uint8_t character_data_120[] = {
+static const uint8_t character_120_data[] = {
   136,
    80,
    32,
@@ -1249,11 +1249,11 @@ static const Character character_120 = {
   1, // bytes per line
   6, // height offset
   120, // unicode id
-  (uint8_t *)character_data_120, // data
+  (uint8_t *)character_120_data, // data
 };
 
 // Character: y unicode: 121
-static const uint8_t character_data_121[] = {
+static const uint8_t character_121_data[] = {
   136,
   136,
    80,
@@ -1269,11 +1269,11 @@ static const Character character_121 = {
   1, // bytes per line
   6, // height offset
   121, // unicode id
-  (uint8_t *)character_data_121, // data
+  (uint8_t *)character_121_data, // data
 };
 
 // Character: z unicode: 122
-static const uint8_t character_data_122[] = {
+static const uint8_t character_122_data[] = {
   248,
     8,
    16,
@@ -1287,7 +1287,7 @@ static const Character character_122 = {
   1, // bytes per line
   6, // height offset
   122, // unicode id
-  (uint8_t *)character_data_122, // data
+  (uint8_t *)character_122_data, // data
 };
 
 static const Character *characters[] = {
