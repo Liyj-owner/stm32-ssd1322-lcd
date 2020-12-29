@@ -45,12 +45,6 @@ Utf8UnicodeChar charFromUtf8(const char *chr) {
 	return result;
 }
 
-Character * Font_getCharUTF8(Font *font, char *utf8_char, uint8_t *byte_count) {
-	Utf8UnicodeChar ch = charFromUtf8(utf8_char);
-	*byte_count = ch.utf8_len;
-	return Font_getCharUnicode(font, ch.unicode);
-}
-
 // binary search
 static Character * getCharacterFromArray(uint32_t unicode_char, Character **array, int count) {
 	uint32_t first = 0;
@@ -73,6 +67,19 @@ static Character * getCharacterFromArray(uint32_t unicode_char, Character **arra
 	return NULL;
 }
 
-Character * Font_getCharUnicode(Font *font, uint32_t unicode_char) {
-	return getCharacterFromArray(unicode_char, font->character_table, font->character_count);
+Character * Font_getCharUTF8(Font *font, char *utf8_char, uint8_t *out_byte_count) {
+	Utf8UnicodeChar ch = charFromUtf8(utf8_char);
+	if (out_byte_count != NULL) {
+		*out_byte_count = ch.utf8_len;
+	}
+	return getCharacterFromArray(ch.unicode, font->character_table, font->character_count);
 }
+
+uint16_t Font_getCharWidth(Font *font, char *utf8_char, uint8_t *out_byte_count) {
+	Character *character = Font_getCharUTF8(font, utf8_char, out_byte_count);
+	if (character == NULL) {
+		return 0;
+	}
+	return character->width;
+}
+
