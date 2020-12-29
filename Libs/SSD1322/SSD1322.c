@@ -270,7 +270,7 @@ void ssd1322_drawString(char *str, int pos_x, int pos_y, Font *font) {
 }
 
 void ssd1322_drawImage(int pos_x, int pos_y, const Image *image) {
-	const uint8_t *image_data = image->image_data;
+	uint8_t *image_data = image->image_data;
 
 #if IMAGE_COMPRESSION_METHOD == IMAGE_COMPRESSION_NONE
 	// uncompressed
