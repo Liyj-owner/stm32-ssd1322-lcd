@@ -43,13 +43,23 @@ static uint16_t _pin_dc;
 #define SCREEN_HEIGHT 64
 #define SCREEN_BPP 4
 
-#define DECOMPRESSION_BUFFER_SIZE (180 * 180)
+// compression methods
+#define IMAGE_COMPRESSION_NONE		0 // (uncompressed image_data)
+#define IMAGE_COMPRESSION_LZ77		1 // LZ77~ compression
 
+// used compression method
+#define IMAGE_COMPRESSION_METHOD	IMAGE_COMPRESSION_LZ77
+
+// image decompression buffer size
+#define DECOMPRESSION_BUFFER_SIZE 	(180 * 180)
+
+// screen graphic buffer
 static union {
 	uint8_t buff1d[SCREEN_HEIGHT * SCREEN_WIDTH / (8 / SCREEN_BPP)];
 	uint8_t buff2d[SCREEN_HEIGHT][SCREEN_WIDTH / (8 / SCREEN_BPP)];
 } screen_buffer;
 
+// image decompression buffer
 static uint8_t decompression_buffer[DECOMPRESSION_BUFFER_SIZE];
 
 static void _drawImageBPP(int pos_x, int pos_y, int width, int height, uint8_t *image_data, BitsPerPixel bpp);
@@ -222,8 +232,8 @@ void ssd1322_drawString(char *str, int pos_x, int pos_y, Font *font) {
 		else {
 			unsigned char char_len;
 			ch = Font_getCharUTF8(font, str, &char_len);
-			if (ch) {
-				_drawImageBPP(curr_pos_x, curr_pos_y + ch->height_offset, ch->bytes_per_line * 8 / font->bits_per_pixel, ch->height, (uint8_t *)ch->data, font->bits_per_pixel);
+			if (ch != NULL) {
+				_drawImageBPP(curr_pos_x, curr_pos_y + ch->height_offset, ch->bytes_per_line * 8 / font->bits_per_pixel, ch->height, ch->data, font->bits_per_pixel);
 				curr_pos_x += ch->width;
 			}
 			str += char_len;
@@ -276,18 +286,17 @@ static void _drawImageBPP(int pos_x, int pos_y, int width, int height, uint8_t *
 
 void ssd1322_drawImage(int pos_x, int pos_y, Image *image) {
 	uint8_t *image_data = image->image_data;
-	switch (image->compression_method) {
-	case 0: // uncompressed
-		break;
-	case 1: { // LZ77~ compression
-		uint32_t size = lz77_decompress(image_data, image->image_data_length, decompression_buffer, sizeof(decompression_buffer));
-		if (size > sizeof(decompression_buffer)) {
-			// too small decompression buffer
-			return;
-		}
-		image_data = decompression_buffer;
-		break;
+
+#if IMAGE_COMPRESSION_METHOD == IMAGE_COMPRESSION_NONE
+	// uncompressed
+#elif IMAGE_COMPRESSION_METHOD == IMAGE_COMPRESSION_LZ77
+	uint32_t size = lz77_decompress(image_data, image->image_data_length, decompression_buffer, sizeof(decompression_buffer));
+	if (size > sizeof(decompression_buffer)) {
+		// too small decompression buffer
+		return;
 	}
-	}
+	image_data = decompression_buffer;
+#endif
+
 	_drawImageBPP(pos_x, pos_y, image->width, image->height, image_data, image->bits_per_pixel);
 }
