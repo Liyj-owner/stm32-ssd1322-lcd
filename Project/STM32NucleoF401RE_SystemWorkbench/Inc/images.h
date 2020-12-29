@@ -2,4 +2,5 @@
 
 #include "SSD1322Image.h"
 
-const Image image_compressed;
+const Image banana;
+const Image eggplant;

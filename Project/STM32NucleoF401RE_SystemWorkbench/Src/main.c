@@ -102,7 +102,7 @@ int main(void)
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
-  uint8_t i = 0;
+  int32_t i = -64;
   uint8_t txt[] = "Reset\n";
   HAL_UART_Transmit(&huart2, txt, sizeof(txt), 1000);
   Font *font_ptr = &font;
@@ -110,12 +110,13 @@ int main(void)
   float counter = 1;
 
   uint32_t frame_time = 0;
+  const Image *img = &banana;
   while (1)
   {
 	uint32_t time_start = HAL_GetTick();
 	ssd1322_fill(0);
 
-	ssd1322_drawImage((256 - image_compressed.width) / 2, -i, &image_compressed);
+	ssd1322_drawImage((256 - img->width) / 2, -i, img);
 
 	snprintf(text_buffer, sizeof(text_buffer), "%lums", frame_time);
 	ssd1322_drawString(text_buffer, 100, 10, font_ptr);
@@ -139,8 +140,14 @@ int main(void)
 	//HAL_UART_Transmit(&huart2, txt, sizeof(txt), 1000);
 
 	i++;
-	if (i > image_compressed.height - 64) {
-	  i = 0;
+	if (i > img->height) {
+	  i = -64;
+	  if (img == &banana) {
+		  img = &eggplant;
+	  }
+	  else {
+		  img = &banana;
+	  }
 	}
 	counter += 0.01;
     /* USER CODE END WHILE */
