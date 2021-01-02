@@ -1,5 +1,5 @@
 #pragma once
 
-#include "SSD1322Font.h"
+#include "MTGL_font.h"
 
 extern const Font font;

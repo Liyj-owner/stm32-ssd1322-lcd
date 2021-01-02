@@ -1,6 +1,6 @@
 #pragma once
 
-#include "SSD1322Image.h"
+#include "MTGL_image.h"
 
 const Image banana;
 const Image eggplant;

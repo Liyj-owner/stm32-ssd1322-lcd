@@ -64,6 +64,39 @@ static void MX_SPI2_Init(void);
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
 
+static void _sendCommand(uint8_t command) {
+    HAL_GPIO_WritePin(OLED_SPI_NSS_GPIO_Port, OLED_SPI_NSS_Pin, GPIO_PIN_SET);
+    HAL_GPIO_WritePin(OLED_SPI_DC_GPIO_Port, OLED_SPI_DC_Pin, GPIO_PIN_RESET);
+    HAL_GPIO_WritePin(OLED_SPI_NSS_GPIO_Port, OLED_SPI_NSS_Pin, GPIO_PIN_RESET);
+
+    HAL_SPI_Transmit(&hspi2, &command, 1, 0xFF);
+    //HAL_Delay(0);
+
+    HAL_GPIO_WritePin(OLED_SPI_NSS_GPIO_Port, OLED_SPI_NSS_Pin, GPIO_PIN_SET);
+}
+
+static void _sendData(uint8_t data) {
+    HAL_GPIO_WritePin(OLED_SPI_NSS_GPIO_Port, OLED_SPI_NSS_Pin, GPIO_PIN_SET);
+    HAL_GPIO_WritePin(OLED_SPI_DC_GPIO_Port, OLED_SPI_DC_Pin, GPIO_PIN_SET);
+    HAL_GPIO_WritePin(OLED_SPI_NSS_GPIO_Port, OLED_SPI_NSS_Pin, GPIO_PIN_RESET);
+
+    HAL_SPI_Transmit(&hspi2, &data, 1, 0xFF);
+    //HAL_Delay(0);
+
+    HAL_GPIO_WritePin(OLED_SPI_NSS_GPIO_Port, OLED_SPI_NSS_Pin, GPIO_PIN_SET);
+}
+
+static void _sendDataArray(uint8_t *data, int32_t length) {
+    HAL_GPIO_WritePin(OLED_SPI_NSS_GPIO_Port, OLED_SPI_NSS_Pin, GPIO_PIN_SET);
+    HAL_GPIO_WritePin(OLED_SPI_DC_GPIO_Port, OLED_SPI_DC_Pin, GPIO_PIN_SET);
+    HAL_GPIO_WritePin(OLED_SPI_NSS_GPIO_Port, OLED_SPI_NSS_Pin, GPIO_PIN_RESET);
+
+    HAL_SPI_Transmit(&hspi2, data, length, 0xFF);
+    //HAL_Delay(0);
+
+    HAL_GPIO_WritePin(OLED_SPI_NSS_GPIO_Port, OLED_SPI_NSS_Pin, GPIO_PIN_SET);
+}
+
 /* USER CODE END 0 */
 
 /**
@@ -97,7 +130,9 @@ int main(void)
   MX_USART2_UART_Init();
   MX_SPI2_Init();
   /* USER CODE BEGIN 2 */
-  ssd1322_init(&hspi2, OLED_SPI_NSS_GPIO_Port, OLED_SPI_NSS_Pin, OLED_SPI_DC_GPIO_Port, OLED_SPI_DC_Pin);
+  //ssd1322_init(&hspi2, OLED_SPI_NSS_GPIO_Port, OLED_SPI_NSS_Pin, OLED_SPI_DC_GPIO_Port, OLED_SPI_DC_Pin);
+  ssd1322_init(_sendCommand, _sendData, _sendDataArray);
+  MTGL_attatchHAL(SCREEN_WIDTH, SCREEN_HEIGHT, ssd1322_flushBuffer, ssd1322_drawPixel, ssd1322_fill);
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -114,15 +149,15 @@ int main(void)
   while (1)
   {
 	uint32_t time_start = HAL_GetTick();
-	ssd1322_fill(0);
+	MTGL_fill(0);
 
-	ssd1322_drawImage((256 - img->width) / 2, -i, img);
+	MTGL_drawImage((256 - img->width) / 2, -i, img);
 
 	snprintf(text_buffer, sizeof(text_buffer), "%lums", frame_time);
-	ssd1322_drawString(text_buffer, 0, 0, font_ptr);
+	MTGL_drawString(text_buffer, 0, 0, font_ptr);
 
 	//HAL_Delay(10);
-	ssd1322_display();
+	MTGL_flushBuffer();
 	uint32_t time_end = HAL_GetTick();
 	frame_time = time_end - time_start;
 

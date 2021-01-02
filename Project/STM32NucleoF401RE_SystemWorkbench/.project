@@ -25,26 +25,4 @@
 		<nature>org.eclipse.cdt.managedbuilder.core.managedBuildNature</nature>
 		<nature>com.st.stm32cube.ide.mcu.MCUSW4STM32ConvertedProjectNature</nature>
 	</natures>
-	<linkedResources>
-		<link>
-			<name>Inc/SSD1322.h</name>
-			<type>1</type>
-			<locationURI>PARENT-2-PROJECT_LOC/Libs/SSD1322/SSD1322.h</locationURI>
-		</link>
-		<link>
-			<name>Inc/SSD1322Font.h</name>
-			<type>1</type>
-			<locationURI>PARENT-2-PROJECT_LOC/Libs/SSD1322/SSD1322Font.h</locationURI>
-		</link>
-		<link>
-			<name>Src/SSD1322.c</name>
-			<type>1</type>
-			<locationURI>PARENT-2-PROJECT_LOC/Libs/SSD1322/SSD1322.c</locationURI>
-		</link>
-		<link>
-			<name>Src/SSD1322Font.c</name>
-			<type>1</type>
-			<locationURI>PARENT-2-PROJECT_LOC/Libs/SSD1322/SSD1322Font.c</locationURI>
-		</link>
-	</linkedResources>
 </projectDescription>

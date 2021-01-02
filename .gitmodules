@@ -1,0 +1,9 @@
+[submodule "Project/STM32NucleoF401RE_SystemWorkbench/Src/lib/MTGL"]
+	path = Project/STM32NucleoF401RE_SystemWorkbench/Src/lib/MTGL
+	url = https://github.com/MTTools/MTGL.git
+[submodule "Project/STM32NucleoF401RE_SystemWorkbench/Src/lib/SSD1322"]
+	path = Project/STM32NucleoF401RE_SystemWorkbench/Src/lib/SSD1322
+	url = https://github.com/MTTools/SSD1322.git
+[submodule "Project/STM32NucleoF401RE_SystemWorkbench/Src/lib/LZ77"]
+	path = Project/STM32NucleoF401RE_SystemWorkbench/Src/lib/LZ77
+	url = https://github.com/MTTools/LZ77.git
