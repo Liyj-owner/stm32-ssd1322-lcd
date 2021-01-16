@@ -149,8 +149,12 @@ int main(void)
 
 	MTGL_drawImage((256 - img->width) / 2, -i, img);
 
-	snprintf(text_buffer, sizeof(text_buffer), "%lums\nasd\n2342\nasz\n24eADAD\nDAEfe\nKO998", frame_time);
-	MTGL_drawString(text_buffer, 0, 0, &font_px_sans_nouveaux_12_1bpp);
+	snprintf(text_buffer, sizeof(text_buffer), "AsDg\n2342\nasz\n24eADAD");
+	MTGL_drawString(text_buffer, 10 + i, -i, &font_cherry_monospace_light_28_2bpp, 1.25f);
+
+	snprintf(text_buffer, sizeof(text_buffer), "%lums", frame_time);
+	MTGL_drawString(text_buffer, 0, 0, &font_px_sans_nouveaux_8_1bpp, 1.5f);
+	MTGL_drawString(text_buffer, 0, 10, &font_px_sans_nouveaux_12_1bpp, 1.5f);
 
 	//HAL_Delay(10);
 	MTGL_flushBuffer();
