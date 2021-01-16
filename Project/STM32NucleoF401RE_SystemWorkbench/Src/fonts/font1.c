@@ -1,4 +1,3 @@
-#include "font1.h"
 /*----------------------------------------*
  *        Generated with MTTools          *
  *        TODO: website address?          *
@@ -27,6 +26,7 @@ typedef struct {
 } Font;
 ----------------------------------------*/
 
+#include "fonts.h"
 
 /*
 characters:  ,.0123456789:;ABCDEFGHIKLMNOPQRSTVWXYZabcdefghijklmnopqrstuvwxyz

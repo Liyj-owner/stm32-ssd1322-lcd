@@ -19,13 +19,14 @@
 /* USER CODE END Header */
 
 /* Includes ------------------------------------------------------------------*/
+
 #include "main.h"
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 #include <stdio.h>
 #include "SSD1322.h"
-#include "font1.h"
+#include "fonts.h"
 #include "images.h"
 /* USER CODE END Includes */
 
@@ -75,18 +76,7 @@ static void _sendCommand(uint8_t command) {
     HAL_GPIO_WritePin(OLED_SPI_NSS_GPIO_Port, OLED_SPI_NSS_Pin, GPIO_PIN_SET);
 }
 
-static void _sendData(uint8_t data) {
-    HAL_GPIO_WritePin(OLED_SPI_NSS_GPIO_Port, OLED_SPI_NSS_Pin, GPIO_PIN_SET);
-    HAL_GPIO_WritePin(OLED_SPI_DC_GPIO_Port, OLED_SPI_DC_Pin, GPIO_PIN_SET);
-    HAL_GPIO_WritePin(OLED_SPI_NSS_GPIO_Port, OLED_SPI_NSS_Pin, GPIO_PIN_RESET);
-
-    HAL_SPI_Transmit(&hspi2, &data, 1, 0xFF);
-    //HAL_Delay(0);
-
-    HAL_GPIO_WritePin(OLED_SPI_NSS_GPIO_Port, OLED_SPI_NSS_Pin, GPIO_PIN_SET);
-}
-
-static void _sendDataArray(uint8_t *data, int32_t length) {
+static void _sendData(uint8_t *data, int32_t length) {
     HAL_GPIO_WritePin(OLED_SPI_NSS_GPIO_Port, OLED_SPI_NSS_Pin, GPIO_PIN_SET);
     HAL_GPIO_WritePin(OLED_SPI_DC_GPIO_Port, OLED_SPI_DC_Pin, GPIO_PIN_SET);
     HAL_GPIO_WritePin(OLED_SPI_NSS_GPIO_Port, OLED_SPI_NSS_Pin, GPIO_PIN_RESET);
@@ -131,39 +121,45 @@ int main(void)
   MX_SPI2_Init();
   /* USER CODE BEGIN 2 */
   //ssd1322_init(&hspi2, OLED_SPI_NSS_GPIO_Port, OLED_SPI_NSS_Pin, OLED_SPI_DC_GPIO_Port, OLED_SPI_DC_Pin);
-  ssd1322_init(_sendCommand, _sendData, _sendDataArray);
-  MTGL_attatchHAL(SCREEN_WIDTH, SCREEN_HEIGHT, ssd1322_flushBuffer, ssd1322_drawPixel, ssd1322_fill);
-  /* USER CODE END 2 */
+    ssd1322_init(_sendCommand, _sendData);
+    MTGLInitStruct mtgl_init = {
+        .screen_width = SSD1322_SCREEN_WIDTH,
+        .screen_height = SSD1322_SCREEN_HEIGHT,
+        .screen_bpp = SSD1322_SCREEN_BPP,
+        .screen_buffer = ssd1322_screen_buffer,
+        .flushBufferFunction = ssd1322_flushBuffer,
+    };
+    MTGL_attatchHAL(&mtgl_init);
+    /* USER CODE END 2 */
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
   int32_t i = -64;
   uint8_t txt[] = "Reset\n";
   HAL_UART_Transmit(&huart2, txt, sizeof(txt), 1000);
-  const Font *font_ptr = &font;
-  char text_buffer[32] = "";
+
+  char text_buffer[64] = "";
   float counter = 1;
 
   uint32_t frame_time = 0;
   const Image *img = &banana;
-  while (1)
-  {
+  while (1) {
 	uint32_t time_start = HAL_GetTick();
 	MTGL_fill(0);
 
 	MTGL_drawImage((256 - img->width) / 2, -i, img);
 
-	snprintf(text_buffer, sizeof(text_buffer), "%lums", frame_time);
-	MTGL_drawString(text_buffer, 0, 0, font_ptr);
+	snprintf(text_buffer, sizeof(text_buffer), "%lums\nasd\n2342\nasz\n24eADAD\nDAEfe\nKO998", frame_time);
+	MTGL_drawString(text_buffer, 0, 0, &font_px_sans_nouveaux_12_1bpp);
 
 	//HAL_Delay(10);
 	MTGL_flushBuffer();
 	uint32_t time_end = HAL_GetTick();
 	frame_time = time_end - time_start;
 
-	//HAL_GPIO_WritePin(BUZZER_GPIO_Port, BUZZER_Pin, GPIO_PIN_SET);
-	//HAL_Delay(50);
-	//HAL_GPIO_WritePin(BUZZER_GPIO_Port, BUZZER_Pin, GPIO_PIN_RESET);
+//	HAL_GPIO_WritePin(BUZZER_GPIO_Port, BUZZER_Pin, GPIO_PIN_SET);
+//	HAL_Delay(50);
+//	HAL_GPIO_WritePin(BUZZER_GPIO_Port, BUZZER_Pin, GPIO_PIN_RESET);
 
 //	HAL_GPIO_WritePin(LD2_GPIO_Port, LD2_Pin, GPIO_PIN_SET);
 //	HAL_Delay(50);
