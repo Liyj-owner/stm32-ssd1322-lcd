@@ -2,5 +2,5 @@
 
 #include "MTGL_image.h"
 
-const Image banana;
-const Image eggplant;
+extern const Image image_banana;
+extern const Image image_eggplant;

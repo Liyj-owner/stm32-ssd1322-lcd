@@ -142,7 +142,7 @@ int main(void)
   float counter = 1;
 
   uint32_t frame_time = 0;
-  const Image *img = &banana;
+  const Image *img = &image_banana;
   while (1) {
 	uint32_t time_start = HAL_GetTick();
 	MTGL_fill(0);
@@ -173,11 +173,11 @@ int main(void)
 	i++;
 	if (i > img->height) {
 	  i = -64;
-	  if (img == &banana) {
-		  img = &eggplant;
+	  if (img == &image_banana) {
+		  img = &image_eggplant;
 	  }
 	  else {
-		  img = &banana;
+		  img = &image_banana;
 	  }
 	}
 	counter += 0.01;
