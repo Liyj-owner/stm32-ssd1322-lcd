@@ -123,8 +123,8 @@ int main(void)
   //ssd1322_init(&hspi2, OLED_SPI_NSS_GPIO_Port, OLED_SPI_NSS_Pin, OLED_SPI_DC_GPIO_Port, OLED_SPI_DC_Pin);
     ssd1322_init(_sendCommand, _sendData);
     MTGLInitStruct mtgl_init = {
-        .screen_width = SSD1322_SCREEN_WIDTH,
-        .screen_height = SSD1322_SCREEN_HEIGHT,
+        .screen_size.width = SSD1322_SCREEN_WIDTH,
+        .screen_size.height = SSD1322_SCREEN_HEIGHT,
         .screen_bpp = SSD1322_SCREEN_BPP,
         .screen_buffer = ssd1322_screen_buffer,
         .flushBufferFunction = ssd1322_flushBuffer,
