@@ -25,7 +25,7 @@
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 #include <stdio.h>
-#include "SSD1322.h"
+#include "SSD1322/SSD1322.h"
 #include "fonts.h"
 #include "images.h"
 /* USER CODE END Includes */
@@ -147,14 +147,27 @@ int main(void)
 	uint32_t time_start = HAL_GetTick();
 	MTGL_fill(0);
 
-	MTGL_drawImage((256 - img->width) / 2, -i, img);
+	//MTGL_drawImage((256 - img->width) / 2, -i, img);
 
-	snprintf(text_buffer, sizeof(text_buffer), "AsDg\n2342\nasz\n24eADAD");
-	MTGL_drawString(text_buffer, 10 + i, -i, &font_cherry_monospace_light_28_2bpp, 1.25f);
+	//snprintf(text_buffer, sizeof(text_buffer), "AsDg\n2342\nasz\n24eADAD");
+	//MTGL_drawString(text_buffer, 10 + i, -i, &font_cherry_monospace_light_28_2bpp, 1.2f);
 
-	snprintf(text_buffer, sizeof(text_buffer), "%lums", frame_time);
-	MTGL_drawString(text_buffer, 0, 0, &font_px_sans_nouveaux_8_1bpp, 1.5f);
-	MTGL_drawString(text_buffer, 0, 10, &font_px_sans_nouveaux_12_1bpp, 1.5f);
+	//snprintf(text_buffer, sizeof(text_buffer), "%lums", frame_time);
+	//MTGL_drawString(text_buffer, 0, 0, &font_px_sans_nouveaux_8_1bpp, 1.5f);
+	//MTGL_drawString(text_buffer, 0, 10, &font_px_sans_nouveaux_12_1bpp, 1.5f);
+
+	MTGLSize area = { 256, 64 };
+	snprintf(text_buffer, sizeof(text_buffer), "Align Ś\nme ŚgqŚ");
+	float spacing = 1.0f;
+    MTGL_drawStringAligned(text_buffer, 0, -2, &font_px_sans_nouveaux_8_1bpp, spacing, area, TEXT_ALIGNMENT_LEFT_TOP);
+//    MTGL_drawStringAligned(text_buffer, 0, 0, &font_px_sans_nouveaux_8_1bpp, spacing, area, TEXT_ALIGNMENT_CENTER_TOP);
+//    MTGL_drawStringAligned(text_buffer, 0, 0, &font_px_sans_nouveaux_8_1bpp, spacing, area, TEXT_ALIGNMENT_RIGHT_TOP);
+//    MTGL_drawStringAligned(text_buffer, 0, 0, &font_px_sans_nouveaux_8_1bpp, spacing, area, TEXT_ALIGNMENT_LEFT_MIDDLE);
+    MTGL_drawStringAligned(text_buffer, 0, 0, &font_px_sans_nouveaux_8_1bpp, spacing, area, TEXT_ALIGNMENT_CENTER_MIDDLE);
+//    MTGL_drawStringAligned(text_buffer, 0, 0, &font_px_sans_nouveaux_8_1bpp, spacing, area, TEXT_ALIGNMENT_RIGHT_MIDDLE);
+//    MTGL_drawStringAligned(text_buffer, 0, 0, &font_px_sans_nouveaux_8_1bpp, spacing, area, TEXT_ALIGNMENT_LEFT_BOTTOM);
+//    MTGL_drawStringAligned(text_buffer, 0, 0, &font_px_sans_nouveaux_8_1bpp, spacing, area, TEXT_ALIGNMENT_CENTER_BOTTOM);
+    MTGL_drawStringAligned(text_buffer, 0, 0, &font_px_sans_nouveaux_8_1bpp, spacing, area, TEXT_ALIGNMENT_RIGHT_BOTTOM);
 
 	//HAL_Delay(10);
 	MTGL_flushBuffer();

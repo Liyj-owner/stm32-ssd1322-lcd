@@ -3,7 +3,7 @@
  *        TODO: website address?          *
  *----------------------------------------*/
 
-#include "MTGL_font.h"
+#include "MTGL/MTGL_font.h"
 
 /*
 characters:  !"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}~¡¢£¤¥¦§¨©ª«¬­®¯°±²³´µ¶·¸¹º»¼½¾¿ÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖ×ØÙÚÛÜÝÞßàáâãäåæçèéêëìíîïðñòóôõö÷øùúûüýþĀāĂăĄąĆćĈĉĊċČčĎďĐđĒēĔĕĖėĘęĚěĜĝĞğĠġĢģĤĥĦħĨĩĪīĬĭĮįİıĲĳĴĵĶķĸĹĺĻļĽľĿŀŁłŃńŅņŇňŉŊŋŌōŎŏŐőŒœŔŕŖŗŘřŚśŜŝŞşŠšŢţŤťŦŧŨũŪūŬŭŮůŰűŲųŴŵŶŷŸŹźŻżŽžſ
@@ -7170,7 +7170,7 @@ static const Character *characters[] = {
 };
 
 const Font font_px_sans_nouveaux_8_1bpp = {
-  8, // font_size
+  13, // font_size
   1, // bits_per_pixel
   317, // character_count
   (Character **)characters, // characters

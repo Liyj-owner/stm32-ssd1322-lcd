@@ -3,7 +3,7 @@
  *        TODO: website address?          *
  *----------------------------------------*/
 
-#include "MTGL_image.h"
+#include "MTGL/MTGL_image.h"
 
 /*
 image: image_banana
