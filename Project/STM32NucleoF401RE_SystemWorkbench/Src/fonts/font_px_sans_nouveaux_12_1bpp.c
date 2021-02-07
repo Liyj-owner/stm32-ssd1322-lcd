@@ -8053,7 +8053,7 @@ static const Character *characters[] = {
 };
 
 const Font font_px_sans_nouveaux_12_1bpp = {
-  12, // font_size
+  21, // font_size
   1, // bits_per_pixel
   317, // character_count
   (Character **)characters, // characters

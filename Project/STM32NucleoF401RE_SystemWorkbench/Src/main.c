@@ -138,7 +138,7 @@ int main(void)
   uint8_t txt[] = "Reset\n";
   HAL_UART_Transmit(&huart2, txt, sizeof(txt), 1000);
 
-  char text_buffer[64] = "";
+  char text_buffer[128] = "";
   float counter = 1;
 
   uint32_t frame_time = 0;
@@ -157,17 +157,22 @@ int main(void)
 	//MTGL_drawString(text_buffer, 0, 10, &font_px_sans_nouveaux_12_1bpp, 1.5f);
 
 	MTGLSize area = { 256, 64 };
-	snprintf(text_buffer, sizeof(text_buffer), "Align Ś\nme ŚgqŚ");
+	snprintf(text_buffer, sizeof(text_buffer), "1 First line to align\n2 And second align\n3 me too . . . long long long long text\n4\n5");
 	float spacing = 1.0f;
-    MTGL_drawStringAligned(text_buffer, 0, -2, &font_px_sans_nouveaux_8_1bpp, spacing, area, TEXT_ALIGNMENT_LEFT_TOP);
+//    MTGL_drawStringAligned(text_buffer, 0, -2, &font_px_sans_nouveaux_8_1bpp, spacing, area, TEXT_ALIGNMENT_LEFT_TOP);
 //    MTGL_drawStringAligned(text_buffer, 0, 0, &font_px_sans_nouveaux_8_1bpp, spacing, area, TEXT_ALIGNMENT_CENTER_TOP);
 //    MTGL_drawStringAligned(text_buffer, 0, 0, &font_px_sans_nouveaux_8_1bpp, spacing, area, TEXT_ALIGNMENT_RIGHT_TOP);
 //    MTGL_drawStringAligned(text_buffer, 0, 0, &font_px_sans_nouveaux_8_1bpp, spacing, area, TEXT_ALIGNMENT_LEFT_MIDDLE);
-    MTGL_drawStringAligned(text_buffer, 0, 0, &font_px_sans_nouveaux_8_1bpp, spacing, area, TEXT_ALIGNMENT_CENTER_MIDDLE);
+//    MTGL_drawStringAligned(text_buffer, 0, 0, &font_px_sans_nouveaux_8_1bpp, spacing, area, TEXT_ALIGNMENT_CENTER_MIDDLE);
 //    MTGL_drawStringAligned(text_buffer, 0, 0, &font_px_sans_nouveaux_8_1bpp, spacing, area, TEXT_ALIGNMENT_RIGHT_MIDDLE);
 //    MTGL_drawStringAligned(text_buffer, 0, 0, &font_px_sans_nouveaux_8_1bpp, spacing, area, TEXT_ALIGNMENT_LEFT_BOTTOM);
 //    MTGL_drawStringAligned(text_buffer, 0, 0, &font_px_sans_nouveaux_8_1bpp, spacing, area, TEXT_ALIGNMENT_CENTER_BOTTOM);
-    MTGL_drawStringAligned(text_buffer, 0, 0, &font_px_sans_nouveaux_8_1bpp, spacing, area, TEXT_ALIGNMENT_RIGHT_BOTTOM);
+//    MTGL_drawStringAligned(text_buffer, 0, 0, &font_px_sans_nouveaux_8_1bpp, spacing, area, TEXT_ALIGNMENT_RIGHT_BOTTOM);
+
+	TextAlignmentVertical v = (uint8_t)i % 4;
+	TextAlignmentHorizontal h = ((uint8_t)i / 4) % 4;
+	TextAlignment a = (h << 4) | v;
+	MTGL_drawStringAligned(text_buffer, 0, 0, &font_px_sans_nouveaux_8_1bpp, spacing, area, a);
 
 	//HAL_Delay(10);
 	MTGL_flushBuffer();
@@ -198,6 +203,7 @@ int main(void)
 	  }
 	}
 	counter += 0.01;
+	HAL_Delay(1000);
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
