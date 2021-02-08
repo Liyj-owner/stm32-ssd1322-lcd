@@ -157,7 +157,7 @@ int main(void)
 	//MTGL_drawString(text_buffer, 0, 10, &font_px_sans_nouveaux_12_1bpp, 1.5f);
 
 	MTGLSize area = { 256, 64 };
-	snprintf(text_buffer, sizeof(text_buffer), "1 First line to align\n2 And second align\n3 me too . . . long long long long text\n4\n5");
+	snprintf(text_buffer, sizeof(text_buffer), "1 First line to align\n2 And second align\n3 me too . . . long long long long text");
 	float spacing = 1.0f;
 //    MTGL_drawStringAligned(text_buffer, 0, -2, &font_px_sans_nouveaux_8_1bpp, spacing, area, TEXT_ALIGNMENT_LEFT_TOP);
 //    MTGL_drawStringAligned(text_buffer, 0, 0, &font_px_sans_nouveaux_8_1bpp, spacing, area, TEXT_ALIGNMENT_CENTER_TOP);
@@ -169,12 +169,32 @@ int main(void)
 //    MTGL_drawStringAligned(text_buffer, 0, 0, &font_px_sans_nouveaux_8_1bpp, spacing, area, TEXT_ALIGNMENT_CENTER_BOTTOM);
 //    MTGL_drawStringAligned(text_buffer, 0, 0, &font_px_sans_nouveaux_8_1bpp, spacing, area, TEXT_ALIGNMENT_RIGHT_BOTTOM);
 
-	TextAlignmentVertical v = (uint8_t)i % 4;
-	TextAlignmentHorizontal h = ((uint8_t)i / 4) % 4;
-	TextAlignment a = (h << 4) | v;
+
+	int x1 = 0;
+	int x2 = 255;
+	int y1 = 0;
+	int y2 = 63;
+	int steps = 8;
+	int step = 256 / steps;
+	for (int x = -2; x < steps + 2; x++) {
+	    if (x % 2) {
+	        MTGL_drawLine(i + x * step, y1, i + x * step + step, y2, 17);
+	    }
+	    else {
+	        MTGL_drawLine(i + x * step, y2, i + x * step + step, y1, 17);
+	    }
+	}
+
+
+	MTGL_drawLine(x1, y1, x2, y1, 0xFF);
+	MTGL_drawLine(x2, y1, x2, y2, 0xFF);
+	MTGL_drawLine(x2, y2, x1, y2, 0xFF);
+	MTGL_drawLine(x1, y2, x1, y1, 0xFF);
+
+	TextAlignment a = (uint8_t)i % 16;
 	MTGL_drawStringAligned(text_buffer, 0, 0, &font_px_sans_nouveaux_8_1bpp, spacing, area, a);
 
-	//HAL_Delay(10);
+	//HAL_Delay(100);
 	MTGL_flushBuffer();
 	uint32_t time_end = HAL_GetTick();
 	frame_time = time_end - time_start;
@@ -193,17 +213,11 @@ int main(void)
 	//HAL_UART_Transmit(&huart2, txt, sizeof(txt), 1000);
 
 	i++;
-	if (i > img->height) {
-	  i = -64;
-	  if (img == &image_banana) {
-		  img = &image_eggplant;
-	  }
-	  else {
-		  img = &image_banana;
-	  }
+	if (i > step * 2) {
+	  i = 0;
 	}
 	counter += 0.01;
-	HAL_Delay(1000);
+	HAL_Delay(500);
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
