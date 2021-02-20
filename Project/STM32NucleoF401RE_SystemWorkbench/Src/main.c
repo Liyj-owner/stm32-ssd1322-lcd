@@ -129,7 +129,7 @@ int main(void)
         .screen_buffer = ssd1322_screen_buffer,
         .flushBufferFunction = ssd1322_flushBuffer,
     };
-    MTGL_attatchHAL(&mtgl_init);
+    MTGL_attachHAL(&mtgl_init);
     /* USER CODE END 2 */
 
   /* Infinite loop */
