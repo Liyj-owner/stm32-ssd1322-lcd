@@ -143,11 +143,12 @@ int main(void)
 
   uint32_t frame_time = 0;
   const Image *img = &image_banana;
+  uint8_t brightness = 0;
   while (1) {
 	uint32_t time_start = HAL_GetTick();
 	MTGL_fill(0);
 
-	//MTGL_drawImage((256 - img->width) / 2, -i, img);
+	MTGL_drawImageBrightness((256 - img->width), (64 - img->height) / 2, img, brightness);
 
 	//snprintf(text_buffer, sizeof(text_buffer), "AsDg\n2342\nasz\n24eADAD");
 	//MTGL_drawString(text_buffer, 10 + i, -i, &font_cherry_monospace_light_28_2bpp, 1.2f);
@@ -159,16 +160,6 @@ int main(void)
 	MTGLSize area = { 256, 64 };
 	snprintf(text_buffer, sizeof(text_buffer), "1 First line to align\n2 And second align\n3 me too . . . long long long long text");
 	float spacing = 1.0f;
-//    MTGL_drawStringAligned(text_buffer, 0, -2, &font_px_sans_nouveaux_8_1bpp, spacing, area, TEXT_ALIGNMENT_LEFT_TOP);
-//    MTGL_drawStringAligned(text_buffer, 0, 0, &font_px_sans_nouveaux_8_1bpp, spacing, area, TEXT_ALIGNMENT_CENTER_TOP);
-//    MTGL_drawStringAligned(text_buffer, 0, 0, &font_px_sans_nouveaux_8_1bpp, spacing, area, TEXT_ALIGNMENT_RIGHT_TOP);
-//    MTGL_drawStringAligned(text_buffer, 0, 0, &font_px_sans_nouveaux_8_1bpp, spacing, area, TEXT_ALIGNMENT_LEFT_MIDDLE);
-//    MTGL_drawStringAligned(text_buffer, 0, 0, &font_px_sans_nouveaux_8_1bpp, spacing, area, TEXT_ALIGNMENT_CENTER_MIDDLE);
-//    MTGL_drawStringAligned(text_buffer, 0, 0, &font_px_sans_nouveaux_8_1bpp, spacing, area, TEXT_ALIGNMENT_RIGHT_MIDDLE);
-//    MTGL_drawStringAligned(text_buffer, 0, 0, &font_px_sans_nouveaux_8_1bpp, spacing, area, TEXT_ALIGNMENT_LEFT_BOTTOM);
-//    MTGL_drawStringAligned(text_buffer, 0, 0, &font_px_sans_nouveaux_8_1bpp, spacing, area, TEXT_ALIGNMENT_CENTER_BOTTOM);
-//    MTGL_drawStringAligned(text_buffer, 0, 0, &font_px_sans_nouveaux_8_1bpp, spacing, area, TEXT_ALIGNMENT_RIGHT_BOTTOM);
-
 
 	int x1 = 0;
 	int x2 = 255;
@@ -191,8 +182,16 @@ int main(void)
 	MTGL_drawLine(x2, y2, x1, y2, 0xFF);
 	MTGL_drawLine(x1, y2, x1, y1, 0xFF);
 
-	TextAlignment a = (uint8_t)i % 16;
-	MTGL_drawStringAligned(text_buffer, 0, 0, &font_px_sans_nouveaux_8_1bpp, spacing, area, a);
+	//TextAlignment a = (uint8_t)i % 16;
+	TextAlignment a = TEXT_ALIGNMENT_TOP_LEFT;
+	StringFormat format = {
+        .font = &font_px_sans_nouveaux_8_1bpp,
+        .line_spacing = spacing,
+        .brightness = brightness,
+        .area = area,
+        .alignment = a,
+    };
+	MTGL_drawString(text_buffer, 0, 0, &format);
 
 	//HAL_Delay(100);
 	MTGL_flushBuffer();
@@ -217,7 +216,8 @@ int main(void)
 	  i = 0;
 	}
 	counter += 0.01;
-	HAL_Delay(500);
+	brightness += 1;
+	HAL_Delay(1);
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
